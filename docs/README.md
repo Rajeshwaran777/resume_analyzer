@@ -59,23 +59,23 @@ http://localhost:8080/swagger-ui/index.html
 
 ### 🔹 Swagger API Overview
 
-![Swagger API Overview](docs\screenshots\swagger-ui-overview.jpeg)
+![Swagger API Overview](docs/screenshots/swagger-ui-overview.jpeg)
 
 ### 🔹 Resume Analysis (Text Input)
 
-![Resume Analysis (Text Input)](docs\screenshots\analyze-text-response.jpeg)
+![Resume Analysis (Text Input)](docs/screenshots/analyze-text-response.jpeg)
 
 ### 🔹 Analysis History (Stored Data)
 
-![Analysis History (Stored Data)](docs\screenshots\history-response-1.jpeg)
+![Analysis History (Stored Data)](docs/screenshots/history-response-1.jpeg)
 
-![Analysis History (Stored Data)](docs\screenshots\history-response-2.jpeg)
+![Analysis History (Stored Data)](docs/screenshots/history-response-2.jpeg)
 
-![Analysis History (Stored Data)](docs\screenshots\history-response-3.jpeg)
+![Analysis History (Stored Data)](docs/screenshots/history-response-3.jpeg)
 
 ### 🔹 PostgreSQL Stored Records
 
-![PostgreSQL Stored Records](docs\screenshots\postgres-table-data.jpeg)
+![PostgreSQL Stored Records](docs/screenshots/postgres-table-data.jpeg)
 
 ---
 
