@@ -58,22 +58,22 @@ http://localhost:8080/swagger-ui/index.html
 ## 💻 Frontend UI
 
 ### 🔹 Homepage
-![Homepage](screenshots/frontend/frontend-homepage.png)
+![Homepage](screenshots/frontend/frontend-homepage.jpeg)
 
 ---
 
 ### 🔹 Resume Analyzer (File Upload Result)
-![Analyzer File Result](screenshots/frontend/frontend-analyzer-file-result.png)
+![Analyzer File Result](screenshots/frontend/frontend-analyzer-file-result.jpeg)
 
 ---
 
 ### 🔹 Analysis History Overview
-![History Overview](screenshots/frontend/frontend-history-overview.png)
+![History Overview](screenshots/frontend/frontend-history-overview.jpeg)
 
 ---
 
 ### 🔹 History Filter (Min Score)
-![History Filter](screenshots/frontend/frontend-history-filter.png)
+![History Filter](screenshots/frontend/frontend-history-filter.jpeg)
 
 ---
 
