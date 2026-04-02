@@ -55,7 +55,29 @@ http://localhost:8080/swagger-ui/index.html
 
 ---
 
-## 📷 Screenshots
+## 💻 Frontend UI
+
+### 🔹 Homepage
+![Homepage](screenshots/frontend/frontend-homepage.png)
+
+---
+
+### 🔹 Resume Analyzer (File Upload Result)
+![Analyzer File Result](screenshots/frontend/frontend-analyzer-file-result.png)
+
+---
+
+### 🔹 Analysis History Overview
+![History Overview](screenshots/frontend/frontend-history-overview.png)
+
+---
+
+### 🔹 History Filter (Min Score)
+![History Filter](screenshots/frontend/frontend-history-filter.png)
+
+---
+
+## 📷 Backend Screenshots
 
 ### 🔹 Swagger API Overview
 
