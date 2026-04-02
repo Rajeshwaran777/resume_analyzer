@@ -1,25 +1,38 @@
-# 🚀 AI-Powered Resume Analyzer API
+# 🚀 Resume Analyzer (Full-Stack)
 
-A Spring Boot REST API that analyzes resumes against job descriptions using keyword extraction and match scoring.  
-Supports file uploads, stores results in PostgreSQL, and provides searchable analysis history.
+A full-stack application that analyzes resumes against job descriptions using keyword extraction and match scoring.  
+Supports file uploads, persistent storage, and interactive API exploration.
 
 ---
 
-## 📌 Features
+## 🔍 What Problem This Solves
 
-- 📄 Analyze resume text
-- 📂 Upload and analyze PDF/TXT resumes
-- 🧠 Keyword extraction (skills, tech)
-- 📊 Match percentage scoring
-- 💾 PostgreSQL persistence (Docker)
-- 🔍 Search history by file name
-- 🎯 Filter history by match score
-- 📚 Swagger API documentation
+Recruiters and hiring systems process hundreds of resumes for a single role.
+
+This project simulates a simplified resume screening system by:
+- extracting relevant technical keywords
+- comparing them against job requirements
+- computing a match score
+- highlighting missing and matched skills
+
+---
+
+## ⚙️ Key Features
+
+- 📄 Analyze resume text input  
+- 📂 Upload and process PDF/TXT resumes  
+- 🧠 Keyword extraction (skills, technologies)  
+- 📊 Match percentage scoring  
+- 💾 PostgreSQL persistence (via Docker)  
+- 🔍 Search analysis history by file name  
+- 🎯 Filter results by match score  
+- 📚 Swagger API documentation  
 
 ---
 
 ## 🛠️ Tech Stack
 
+### Backend
 - Java 25  
 - Spring Boot 4  
 - Spring Data JPA  
@@ -27,31 +40,31 @@ Supports file uploads, stores results in PostgreSQL, and provides searchable ana
 - Maven  
 - Swagger (OpenAPI)  
 
+### Frontend
+- React (Vite)
+- Axios
+- Tailwind CSS
+
 ---
 
-## ⚙️ How to Run the Project
+## 🏗️ Architecture
 
-### 1️⃣ Clone the repository
-
-```bash
-git clone https://github.com/YOUR_USERNAME/resume-analyzer.git
-cd resume-analyzer/backend
+```text
+React Frontend
+        ↓
+Spring Boot REST API
+        ↓
+Service Layer (Keyword Extraction + Scoring)
+        ↓
+PostgreSQL Database
 ```
 
-### 2️⃣ Start PostgreSQL using Docker
-```bash
-docker compose up -d
-```
+---
 
-### 3️⃣ Run the Spring Boot application
-```bash
-./mvnw spring-boot:run
-```
-
-### 4️⃣ Open Swagger UI
-```bash
-http://localhost:8080/swagger-ui/index.html
-```
+- Controller Layer → Handles API requests
+- Service Layer → Core logic (keyword extraction + scoring)
+- Repository Layer → Database operations
+- Database → Stores analysis history
 
 ---
 
@@ -77,7 +90,7 @@ http://localhost:8080/swagger-ui/index.html
 
 ---
 
-## 📷 Backend Screenshots
+## 📷 Backend Proof
 
 ### 🔹 Swagger API Overview
 
@@ -132,12 +145,53 @@ http://localhost:8080/swagger-ui/index.html
 
 ---
 
+## ⚙️ How to Run the Project
+
+### 1️⃣ Clone the repository
+
+```bash
+git clone https://github.com/YOUR_USERNAME/resume-analyzer.git
+cd resume-analyzer/backend
+```
+
+### 2️⃣ Start PostgreSQL using Docker
+```bash
+docker compose up -d
+```
+
+### 3️⃣ Run the Spring Boot application
+```bash
+./mvnw spring-boot:run
+```
+
+### 4️⃣ Run the Frontend
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+### Open
+```
+Frontend → http://localhost:5173
+Swagger → http://localhost:8080/swagger-ui/index.html
+```
+
+---
+
+### 🚧 Limitations
+- Keyword-based matching (not semantic NLP)
+- No authentication layer
+- Limited resume parsing formats
+
+---
+
 ## 🧠 Future Improvements
-- React frontend UI
+- Semantic NLP-based matching (embeddings / ML)
 - Authentication (JWT)
-- Advanced NLP (ML-based scoring)
 - Resume parsing for DOCX
-- Pagination + sorting enhancements
+- Ranking multiple candidates
+- Deployment (cloud + live demo)
 
 ---
 
