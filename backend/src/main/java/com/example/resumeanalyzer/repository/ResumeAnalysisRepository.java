@@ -11,5 +11,5 @@ public interface ResumeAnalysisRepository extends JpaRepository<ResumeAnalysis, 
 
     List<ResumeAnalysis> findByResumeFileNameContainingIgnoreCase(String resumeFileName);
 
-    List<ResumeAnalysis> findByMatchPercentageGreaterThanEqual(double matchPercentage);
+    List<ResumeAnalysis> findByFinalScoreGreaterThanEqual(double finalScore);
 }

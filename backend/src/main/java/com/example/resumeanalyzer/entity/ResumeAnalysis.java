@@ -20,8 +20,14 @@ public class ResumeAnalysis {
     @Column(name = "job_description", columnDefinition = "TEXT")
     private String jobDescription;
 
-    @Column(name = "match_percentage", nullable = false)
-    private double matchPercentage;
+    @Column(name = "keyword_score", nullable = false)
+    private double keywordScore;
+
+    @Column(name = "semantic_score", nullable = false)
+    private double semanticScore;
+
+    @Column(name = "final_score", nullable = false)
+    private double finalScore;
 
     @Column(name = "matched_keywords", columnDefinition = "TEXT")
     private String matchedKeywords;
@@ -34,6 +40,21 @@ public class ResumeAnalysis {
 
     @Column(name = "extracted_job_keywords", columnDefinition = "TEXT")
     private String extractedJobKeywords;
+
+    @Column(name = "normalized_resume_skills", columnDefinition = "TEXT")
+    private String normalizedResumeSkills;
+
+    @Column(name = "normalized_job_skills", columnDefinition = "TEXT")
+    private String normalizedJobSkills;
+
+    @Column(name = "strengths", columnDefinition = "TEXT")
+    private String strengths;
+
+    @Column(name = "gaps", columnDefinition = "TEXT")
+    private String gaps;
+
+    @Column(name = "summary", columnDefinition = "TEXT")
+    private String summary;
 
     @Column(name = "message")
     private String message;
@@ -72,12 +93,28 @@ public class ResumeAnalysis {
         this.jobDescription = jobDescription;
     }
 
-    public double getMatchPercentage() {
-        return matchPercentage;
+    public double getKeywordScore() {
+        return keywordScore;
     }
 
-    public void setMatchPercentage(double matchPercentage) {
-        this.matchPercentage = matchPercentage;
+    public void setKeywordScore(double keywordScore) {
+        this.keywordScore = keywordScore;
+    }
+
+    public double getSemanticScore() {
+        return semanticScore;
+    }
+
+    public void setSemanticScore(double semanticScore) {
+        this.semanticScore = semanticScore;
+    }
+
+    public double getFinalScore() {
+        return finalScore;
+    }
+
+    public void setFinalScore(double finalScore) {
+        this.finalScore = finalScore;
     }
 
     public String getMatchedKeywords() {
@@ -110,6 +147,46 @@ public class ResumeAnalysis {
 
     public void setExtractedJobKeywords(String extractedJobKeywords) {
         this.extractedJobKeywords = extractedJobKeywords;
+    }
+
+    public String getNormalizedResumeSkills() {
+        return normalizedResumeSkills;
+    }
+
+    public void setNormalizedResumeSkills(String normalizedResumeSkills) {
+        this.normalizedResumeSkills = normalizedResumeSkills;
+    }
+
+    public String getNormalizedJobSkills() {
+        return normalizedJobSkills;
+    }
+
+    public void setNormalizedJobSkills(String normalizedJobSkills) {
+        this.normalizedJobSkills = normalizedJobSkills;
+    }
+
+    public String getStrengths() {
+        return strengths;
+    }
+
+    public void setStrengths(String strengths) {
+        this.strengths = strengths;
+    }
+
+    public String getGaps() {
+        return gaps;
+    }
+
+    public void setGaps(String gaps) {
+        this.gaps = gaps;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
 
     public String getMessage() {

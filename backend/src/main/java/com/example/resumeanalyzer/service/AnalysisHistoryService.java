@@ -30,11 +30,22 @@ public class AnalysisHistoryService {
         analysis.setResumeFileName(resumeFileName);
         analysis.setResumeText(resumeText);
         analysis.setJobDescription(jobDescription);
-        analysis.setMatchPercentage(responseData.matchPercentage());
-        analysis.setMatchedKeywords(joinKeywords(responseData.matchedKeywords()));
-        analysis.setMissingKeywords(joinKeywords(responseData.missingKeywords()));
-        analysis.setExtractedResumeKeywords(joinKeywords(responseData.extractedResumeKeywords()));
-        analysis.setExtractedJobKeywords(joinKeywords(responseData.extractedJobKeywords()));
+
+        analysis.setKeywordScore(responseData.keywordScore());
+        analysis.setSemanticScore(responseData.semanticScore());
+        analysis.setFinalScore(responseData.finalScore());
+
+        analysis.setMatchedKeywords(joinSet(responseData.matchedKeywords()));
+        analysis.setMissingKeywords(joinSet(responseData.missingKeywords()));
+        analysis.setExtractedResumeKeywords(joinSet(responseData.extractedResumeKeywords()));
+        analysis.setExtractedJobKeywords(joinSet(responseData.extractedJobKeywords()));
+
+        analysis.setNormalizedResumeSkills(joinList(responseData.normalizedResumeSkills()));
+        analysis.setNormalizedJobSkills(joinList(responseData.normalizedJobSkills()));
+        analysis.setStrengths(joinList(responseData.strengths()));
+        analysis.setGaps(joinList(responseData.gaps()));
+
+        analysis.setSummary(responseData.summary());
         analysis.setMessage(responseData.message());
         analysis.setCreatedAt(LocalDateTime.now());
 
@@ -62,7 +73,7 @@ public class AnalysisHistoryService {
     }
 
     public List<AnalysisHistoryResponse> getByMinimumMatchPercentage(double minScore) {
-        return resumeAnalysisRepository.findByMatchPercentageGreaterThanEqual(minScore)
+        return resumeAnalysisRepository.findByFinalScoreGreaterThanEqual(minScore)
                 .stream()
                 .sorted(createdAtDescNullSafe())
                 .map(this::mapToResponse)
@@ -81,40 +92,73 @@ public class AnalysisHistoryService {
                 analysis.getId(),
                 analysis.getResumeFileName(),
                 analysis.getJobDescription(),
-                analysis.getMatchPercentage(),
-                splitKeywords(analysis.getMatchedKeywords()),
-                splitKeywords(analysis.getMissingKeywords()),
-                splitKeywords(analysis.getExtractedResumeKeywords()),
-                splitKeywords(analysis.getExtractedJobKeywords()),
+                analysis.getKeywordScore(),
+                analysis.getSemanticScore(),
+                analysis.getFinalScore(),
+                splitSet(analysis.getMatchedKeywords()),
+                splitSet(analysis.getMissingKeywords()),
+                splitSet(analysis.getExtractedResumeKeywords()),
+                splitSet(analysis.getExtractedJobKeywords()),
+                splitList(analysis.getNormalizedResumeSkills()),
+                splitList(analysis.getNormalizedJobSkills()),
+                splitList(analysis.getStrengths()),
+                splitList(analysis.getGaps()),
+                analysis.getSummary(),
                 analysis.getMessage(),
                 analysis.getCreatedAt()
         );
     }
 
-    private String joinKeywords(Set<String> keywords) {
-        if (keywords == null || keywords.isEmpty()) {
+    private String joinSet(Set<String> values) {
+        if (values == null || values.isEmpty()) {
             return "";
         }
-        return String.join(",", new TreeSet<>(keywords));
+        return String.join(",", new TreeSet<>(values));
     }
 
-    private Set<String> splitKeywords(String keywords) {
-        if (keywords == null || keywords.isBlank()) {
+    private String joinList(List<String> values) {
+        if (values == null || values.isEmpty()) {
+            return "";
+        }
+        return String.join("||", values);
+    }
+
+    private Set<String> splitSet(String values) {
+        if (values == null || values.isBlank()) {
             return Collections.emptySet();
         }
 
-        return Arrays.stream(keywords.split(","))
+        return Arrays.stream(values.split(","))
                 .map(String::trim)
                 .filter(s -> !s.isBlank())
                 .collect(Collectors.toCollection(TreeSet::new));
     }
 
+    private List<String> splitList(String values) {
+        if (values == null || values.isBlank()) {
+            return Collections.emptyList();
+        }
+
+        return Arrays.stream(values.split("\\|\\|"))
+                .map(String::trim)
+                .filter(s -> !s.isBlank())
+                .toList();
+    }
+
     public record AnalyzeResponseData(
-            double matchPercentage,
+            double keywordScore,
+            double semanticScore,
+            double finalScore,
             Set<String> matchedKeywords,
             Set<String> missingKeywords,
             Set<String> extractedResumeKeywords,
             Set<String> extractedJobKeywords,
+            List<String> normalizedResumeSkills,
+            List<String> normalizedJobSkills,
+            List<String> strengths,
+            List<String> gaps,
+            String summary,
             String message
-    ) {}
+    ) {
+    }
 }

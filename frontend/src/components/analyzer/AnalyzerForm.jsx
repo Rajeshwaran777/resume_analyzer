@@ -103,7 +103,8 @@ export default function AnalyzerForm() {
             />
             {file && (
               <p className="mt-3 text-sm text-slate-500">
-                Selected file: <span className="font-medium text-slate-800">{file.name}</span>
+                Selected file:{" "}
+                <span className="font-medium text-slate-800">{file.name}</span>
               </p>
             )}
           </div>
@@ -147,7 +148,7 @@ export default function AnalyzerForm() {
 
       {!result && !loading && (
         <div className="mt-10 rounded-2xl bg-slate-50 border border-slate-200 p-6 text-slate-500">
-          Your analysis result will appear here after submission.
+          Your AI-assisted analysis result will appear here after submission.
         </div>
       )}
 

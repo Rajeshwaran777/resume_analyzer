@@ -1,49 +1,60 @@
-# 🚀 Resume Analyzer (Full-Stack)
+# 🚀 AI-Assisted Resume Analyzer
 
-A full-stack application that analyzes resumes against job descriptions using keyword extraction and match scoring.  
-Supports file uploads, persistent storage, and interactive API exploration.
+A full-stack application that analyzes resumes against job descriptions using a **hybrid scoring approach** that combines **keyword matching** and **semantic similarity**.  
+It provides **final match scores**, **AI-assisted strengths and gaps**, and stores analysis history for later review.
 
 ---
 
 ## 🔍 What Problem This Solves
 
-Recruiters and hiring systems process hundreds of resumes for a single role.
+Recruiters and hiring teams often review large numbers of resumes for a single job role.
 
-This project simulates a simplified resume screening system by:
-- extracting relevant technical keywords
-- comparing them against job requirements
-- computing a match score
-- highlighting missing and matched skills
+This project simulates a simplified resume screening workflow by:
+- extracting relevant technical skills from resumes and job descriptions
+- measuring keyword overlap
+- computing semantic similarity using an AI service
+- generating a hybrid final score
+- highlighting strengths, missing skills, and an overall summary
 
 ---
 
 ## ⚙️ Key Features
 
-- 📄 Analyze resume text input  
-- 📂 Upload and process PDF/TXT resumes  
-- 🧠 Keyword extraction (skills, technologies)  
-- 📊 Match percentage scoring  
-- 💾 PostgreSQL persistence (via Docker)  
-- 🔍 Search analysis history by file name  
-- 🎯 Filter results by match score  
-- 📚 Swagger API documentation  
+- ⚡ Hybrid scoring system (**Keyword Score + Semantic Score + Final Score**)
+- 🤖 AI-assisted insights (**strengths, gaps, and summary**)
+- 📄 Analyze resume text directly
+- 📂 Upload and analyze **PDF/TXT** resumes
+- 💾 Persist analysis history in **PostgreSQL**
+- 🔍 Search history by file name
+- 🎯 Filter history by minimum final score
+- 🌐 Full-stack architecture (**React + Spring Boot + FastAPI**)
+- 📚 Swagger/OpenAPI documentation for backend APIs
 
 ---
 
 ## 🛠️ Tech Stack
 
-### Backend
-- Java 25  
-- Spring Boot 4  
-- Spring Data JPA  
-- PostgreSQL (Docker)  
-- Maven  
-- Swagger (OpenAPI)  
-
 ### Frontend
 - React (Vite)
 - Axios
 - Tailwind CSS
+
+### Backend
+- Java 25
+- Spring Boot 4
+- Spring Data JPA
+- Maven
+- Swagger / OpenAPI
+
+### AI Service
+- Python
+- FastAPI
+- Sentence Transformers
+- Scikit-learn
+
+### Database
+- PostgreSQL
+- Docker
 
 ---
 
@@ -54,17 +65,21 @@ React Frontend
         ↓
 Spring Boot REST API
         ↓
-Service Layer (Keyword Extraction + Scoring)
+AI Service (FastAPI)
+        ↓
+Hybrid Scoring + Insights
         ↓
 PostgreSQL Database
 ```
 
 ---
-
-- Controller Layer → Handles API requests
-- Service Layer → Core logic (keyword extraction + scoring)
-- Repository Layer → Database operations
-- Database → Stores analysis history
+## Layer Responsibilities
+- Frontend → User interface for analysis and history review
+- Controller Layer → Handles HTTP requests
+- Service Layer → Keyword extraction, scoring, orchestration, persistence
+- AI Service → Semantic similarity, normalized skills, strengths, gaps
+- Repository Layer → Database access
+- Database → Stores analysis history and AI-assisted results
 
 ---
 
@@ -102,15 +117,15 @@ PostgreSQL Database
 
 ### 🔹 Analysis History (Stored Data)
 
-![Analysis History (Stored Data)](screenshots/history-response-1.jpeg)
-
-![Analysis History (Stored Data)](screenshots/history-response-2.jpeg)
-
-![Analysis History (Stored Data)](screenshots/history-response-3.jpeg)
+![Analysis History (Stored Data)](screenshots/history-response.jpeg)
 
 ### 🔹 PostgreSQL Stored Records
 
-![PostgreSQL Stored Records](screenshots/postgres-table-data.jpeg)
+![PostgreSQL Stored Records](screenshots/postgres-table-structure.jpeg)
+
+### 🔹 PostgreSQL Stored Records Sample
+
+![PostgreSQL Stored Records](screenshots/postgres-table-data-sample.jpeg)
 
 ---
 
@@ -143,6 +158,75 @@ PostgreSQL Database
 }
 ```
 
+#### Example Response Shape
+
+```json
+{
+    "keywordScore": 85.71,
+    "semanticScore": 57.27,
+    "finalScore": 77.18,
+    "matchedKeywords": [
+        "docker",
+        "git",
+        "java",
+        "mysql",
+        "restapi",
+        "springboot"
+    ],
+    "missingKeywords": [
+        "aws"
+    ],
+    "extractedResumeKeywords": [
+        "docker",
+        "git",
+        "java",
+        "junit",
+        "maven",
+        "mysql",
+        "restapi",
+        "springboot"
+    ],
+    "extractedJobKeywords": [
+        "aws",
+        "docker",
+        "git",
+        "java",
+        "mysql",
+        "restapi",
+        "springboot"
+    ],
+    "normalizedResumeSkills": [
+        "Docker",
+        "Git",
+        "JUnit",
+        "Java",
+        "Maven",
+        "MySQL",
+        "REST API",
+        "Spring Boot"
+    ],
+    "normalizedJobSkills": [
+        "AWS",
+        "Docker",
+        "Git",
+        "Java",
+        "MySQL",
+        "REST API",
+        "Spring Boot"
+    ],
+    "strengths": [
+        "Good alignment in core technical skills",
+        "Strong backend alignment with Java and Spring Boot",
+        "Relevant database skills are present"
+    ],
+    "gaps": [
+        "Some required or preferred skills are missing",
+        "Cloud platform experience is not clearly shown"
+    ],
+    "summary": "Candidate shows a good overall match with the job description, with a notable strength in good alignment in core technical skills. Main gap: Some required or preferred skills are missing",
+    "message": "Good Match"
+}
+```
 ---
 
 ## ⚙️ How to Run the Project
@@ -159,8 +243,19 @@ cd resume-analyzer/backend
 docker compose up -d
 ```
 
+### Run the AI service
+
+```bash
+cd ai-service
+python -m venv venv
+venv\Scripts\activate
+pip install -r requirements.txt
+uvicorn app.main:app --host 127.0.0.1 --port 8001
+```
+
 ### 3️⃣ Run the Spring Boot application
 ```bash
+cd backend
 ./mvnw spring-boot:run
 ```
 
@@ -173,25 +268,44 @@ npm run dev
 
 ### Open
 ```
-Frontend → http://localhost:5173
-Swagger → http://localhost:8080/swagger-ui/index.html
+Frontend: http://localhost:5173
+Backend Swagger UI: http://localhost:8080/swagger-ui/index.html
+AI Service Docs: http://127.0.0.1:8001/docs
 ```
 
 ---
 
+### Verified Functionality
+
+The following flows were tested successfully:
+
+- Resume text analysis
+- Resume file analysis (PDF/TXT)
+- Hybrid scoring response
+- AI-assisted strengths, gaps, and summary
+- History persistence in PostgreSQL
+- History retrieval by ID
+- Search by file name
+- Filter by minimum final score
+- Frontend integration with backend APIs
+
 ### 🚧 Limitations
-- Keyword-based matching (not semantic NLP)
-- No authentication layer
-- Limited resume parsing formats
+- Resume parsing currently supports only PDF and TXT
+- Semantic analysis is based on lightweight embeddings, not advanced ranking models
+- No authentication or user accounts
+- Candidate ranking across multiple resumes is not implemented yet
+- AI insights are assistive and rule-guided, not recruiter-grade decision making
 
 ---
 
 ## 🧠 Future Improvements
-- Semantic NLP-based matching (embeddings / ML)
-- Authentication (JWT)
-- Resume parsing for DOCX
-- Ranking multiple candidates
-- Deployment (cloud + live demo)
+- Better skill normalization and entity mapping
+- Multi-resume candidate ranking
+- DOCX resume parsing
+- Authentication and user-specific history
+- Cloud deployment for frontend, backend, AI service, and database
+- Advanced recruiter feedback and recommendation engine
+- Unit and integration test expansion
 
 ---
 

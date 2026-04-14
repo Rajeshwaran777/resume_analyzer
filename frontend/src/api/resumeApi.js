@@ -29,11 +29,15 @@ export const getHistory = async (page = 0, size = 10) => {
 };
 
 export const searchHistory = async (fileName) => {
-  const response = await api.get(`/analysis/history/search?fileName=${encodeURIComponent(fileName)}`);
+  const response = await api.get(
+    `/analysis/history/search?fileName=${encodeURIComponent(fileName)}`
+  );
   return response.data;
 };
 
 export const filterHistory = async (minScore) => {
-  const response = await api.get(`/analysis/history/filter?minScore=${minScore}`);
+  const response = await api.get(
+    `/analysis/history/filter?minScore=${minScore}`
+  );
   return response.data;
 };
